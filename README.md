@@ -4,8 +4,7 @@
 <b>Discipline | <b>Electrical Engineering 
 :--|:--|
 <b> Lab | <b> Control Engineering Virtual Laboratory (PCC-EE17)
-<b> Experiment|     <b> 6. Show the effect of addition of poles to the forward path transfer function of a closed loop
-system.
+<b> Experiment|     <b> 6. Show the effect of addition of poles to the forward path transfer function of a closed loop system.
 
 ### About the Experiment 
 
