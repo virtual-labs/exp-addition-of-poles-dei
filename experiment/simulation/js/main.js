@@ -13,8 +13,8 @@ var eqn;
 var poles = [],
    roots = [];
 var kpi,essi,esss,kp;
-var z1r="",z1i="",z2r="",z2i="";
-var zeroval =0;
+var p1r="",p1i="",p2r="",p2i="";
+var poleval =0;
 // function changepage() {
 //     var x = document.getElementById("pagechanger").value;
 //     if (x == 1)
@@ -26,93 +26,93 @@ var zeroval =0;
 
 // }
 var conclusion;
-document.getElementById("addzero").addEventListener("click",zeroadder);
-document.getElementById("delzero").addEventListener("click",zeroremover);
-function zeroadder(){
-    if(zeroval!=2)
+document.getElementById("addpole").addEventListener("click",poleadder);
+document.getElementById("delpole").addEventListener("click",poleremover);
+function poleadder(){
+    if(poleval!=2)
     {
-        var zerosr = document.getElementById("zr").value;
-        var zerosi = document.getElementById("zi").value;
-        if(zerosi!="" && zerosi!=0)
+        var polesr = document.getElementById("zr").value;
+        var polesi = document.getElementById("zi").value;
+        if(polesi!="" && polesi!=0)
         {
-            z1i = parseFloat(zerosi);
+            p1i = parseFloat(polesi);
             
-            z2i = z1i;
-            zeroval =2;
-            if(zerosr!="")
+            p2i = p1i;
+            poleval =2;
+            if(polesr!="")
             {
-                z1r = parseFloat(zerosr);
-                z2r = z1r;
+                p1r = parseFloat(polesr);
+                p2r = p1r;
             }
             else
             {
-                z1r =0;
-                z2r = 0;
+                p1r =0;
+                p2r = 0;
             }
-            document.getElementById("viewzero").innerHTML = z1r.toFixed(2)+" + i "+z1i.toFixed(2)+"<br>"+z1r.toFixed(2)+" - i "+z1i.toFixed(2);
-            document.getElementById("addzero").disabled=true;
+            document.getElementById("viewpole").innerHTML = p1r.toFixed(2)+" + i "+p1i.toFixed(2)+"<br>"+p1r.toFixed(2)+" - i "+p1i.toFixed(2);
+            document.getElementById("addpole").disabled=true;
     }
-    else if(zerosr!="")
+    else if(polesr!="")
     {
-        if(z1r == "")
+        if(p1r == "")
         {
-            z1r = parseFloat(zerosr);
-            z1i=0;
-            zeroval=zeroval+1;
-            document.getElementById("viewzero").innerHTML = z1r.toFixed(2);
+            p1r = parseFloat(polesr);
+            p1i=0;
+            poleval=poleval+1;
+            document.getElementById("viewpole").innerHTML = p1r.toFixed(2);
         }
-        else if(z2r == "")
+        else if(p2r == "")
         {
-            z2r = parseFloat(zerosr);
-            z2i=0;
-            zeroval=zeroval+1;
-            document.getElementById("viewzero").innerHTML = z1r.toFixed(2)+"<br>"+z2r.toFixed(2);
-            document.getElementById("addzero").disabled=true;
+            p2r = parseFloat(polesr);
+            p2i=0;
+            poleval=poleval+1;
+            document.getElementById("viewpole").innerHTML = p1r.toFixed(2)+"<br>"+p2r.toFixed(2);
+            document.getElementById("addpole").disabled=true;
         }
     }
     else 
-    alert("Please enter zero value");
-    document.getElementById("delzero").disabled = false;
+    alert("Please enter pole value");
+    document.getElementById("delpole").disabled = false;
     }
-    // else if(zeroval==1)
+    // else if(poleval==1)
     // {
-    //     zeros = document.getElementById("zero_val").value;
-    //     if(zeros!="")
+    //     poles = document.getElementById("pole_val").value;
+    //     if(poles!="")
     //     {
-    //     z2 =parseFloat(zeros);
-    //     zeroval=zeroval+1;
+    //     z2 =parseFloat(poles);
+    //     poleval=poleval+1;
     //     +","+z2.toFixed(2);
         
     // }
     // else 
-    // alert("Please enter zero value");
+    // alert("Please enter pole value");
     // }
 }
-function zeroremover(){
-    if(zeroval==2)
+function poleremover(){
+    if(poleval==2)
     {
-        if(z1i!="")
+        if(p1i!="")
         {
-            zeroval=0;
-            z1r="";
-            z2r="";
-            z1i="";
-            z2i="";
-            document.getElementById("delzero").disabled = true;
-            document.getElementById("viewzero").innerHTML = "";
+            poleval=0;
+            p1r="";
+            p2r="";
+            p1i="";
+            p2i="";
+            document.getElementById("delpole").disabled = true;
+            document.getElementById("viewpole").innerHTML = "";
         }
         else
-        {z2r ="";
-        zeroval = zeroval-1;
-        document.getElementById("viewzero").innerHTML = z1r.toFixed(2);}
-        document.getElementById("addzero").disabled=false;
+        {p2r ="";
+        poleval = poleval-1;
+        document.getElementById("viewpole").innerHTML = p1r.toFixed(2);}
+        document.getElementById("addpole").disabled=false;
     }
-    else if(zeroval == 1)
+    else if(poleval == 1)
     {
-        z1r="";
-        zeroval = zeroval-1;
-        document.getElementById("viewzero").innerHTML = "";
-        document.getElementById("delzero").disabled = true;
+        p1r="";
+        poleval = poleval-1;
+        document.getElementById("viewpole").innerHTML = "";
+        document.getElementById("delpole").disabled = true;
     }
 }
 function addval() {
@@ -183,16 +183,16 @@ function addval() {
         console.log(eqn);
         document.getElementById("out2").innerHTML = eqn;
     stepresponse(a1,b1,c1, a2, b2, c2);
-    eqn ="Not enough Zeroes";
-    if(z1i!="")
+    eqn ="Not enough polees";
+    if(p1i!="")
     {
         a2 = parseInt(p);
     b2 = parseInt(q);
 
     c2 = parseInt(r);
             a1 = parseInt(c);
-            b1 = (z1r+z2r)*a1;
-            c1 = a1*(z1r*z1r+z1i*z1i);
+            b1 = (p1r+p2r)*a1;
+            c1 = a1*(p1r*p1r+p1i*p1i);
             b2 = b2+b1;
             c2= c2+c1;
             a2=a2+a1;
@@ -236,15 +236,15 @@ function addval() {
             document.getElementById("out4").innerHTML = eqn;
     }
     else
-    {if(z2r!="")
+    {if(p2r!="")
         {
             a2 = parseInt(p);
     b2 = parseInt(q);
 
     c2 = parseInt(r);
             a1 = parseInt(c);
-            b1 = (z1r+z2r)*a1;
-            c1 = a1*z1r*z2r;
+            b1 = (p1r+p2r)*a1;
+            c1 = a1*p1r*p2r;
             b2 = b2+b1;
             c2= c2+c1;
             a2=a2+a1;
@@ -281,8 +281,8 @@ function addval() {
             stepresponse2(a1,b1,c1, a2, b2, c2);
         }
         document.getElementById("out4").innerHTML = eqn;
-        eqn ="Not enough Zeroes";
-        if(z1r!="" && z1i=="")
+        eqn ="Not enough polees";
+        if(p1r!="" && p1i=="")
         {
             a2 = parseInt(p);
     b2 = parseInt(q);
@@ -290,7 +290,7 @@ function addval() {
     c2 = parseInt(r);
             a1=0;
             b1 = parseInt(c);
-            c1 = z1r*b1;
+            c1 = p1r*b1;
             b2 = b2+b1;
             c2= c2+c1;
             numerator = "$${\\frac{";
@@ -475,7 +475,7 @@ function cwidth(ms) {
         labels: labelstep,
 
         datasets: [{
-            label: "Step Response 0 zero",
+            label: "Step Response 0 pole",
             data: dat_step,
             fill: false,
             pointRadius: 1,
@@ -483,7 +483,7 @@ function cwidth(ms) {
             tension: 0.1
         },
     {
-            label: "Step Response 1 zero",
+            label: "Step Response 1 pole",
             data: dat_step1,
             fill: false,
             pointRadius: 1,
@@ -491,7 +491,7 @@ function cwidth(ms) {
             tension: 0.1
         },
     {
-            label: "Step Response 2 zero",
+            label: "Step Response 2 pole",
             data: dat_step2,
             fill: false,
             pointRadius: 1,
@@ -603,7 +603,7 @@ function stepresponse2(para1,parb1,parc1, para2, parb2, parc2) {
         co4 = (parb1-co1*parb2)/parb2;
         co5 = co2*(co4/co2-co3);
         step2eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*cos("+sqd.toFixed(2)+"*t) + " + co5.toFixed(2) +"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*sin("+sqd.toFixed(2)+"*t)}$$";
-        tanswer=tanswer+"Step Response of function with 2 zeroes"+step2eqn;
+        tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
         console.log(tanswer);
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
@@ -643,7 +643,7 @@ function stepresponse2(para1,parb1,parc1, para2, parb2, parc2) {
         co1 = parb1;
         co2 = 2 * parb1 / parb2;
         step2eqn = "$${ "+ co1.toFixed(2) +" - "+co1.toFixed(2)+"* e^{-1*t} + " + co2.toFixed(2)+"* t * e^{-1*t}}$$";
-        tanswer=tanswer+"Step Response of function with 2 zeroes"+step2eqn;
+        tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
@@ -705,7 +705,7 @@ function stepresponse1(para1,parb1,parc1, para2, parb2, parc2) {
         co4 = (parb1-co1*parb2)/parb2;
         co5 = co2*(co4/co2-co3);
         step1eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*cos("+sqd.toFixed(2)+"*t) + " + co5.toFixed(2) +"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*sin("+sqd.toFixed(2)+"*t)}$$";
-        tanswer=tanswer+"Step Response of function with 1 zeroes"+step1eqn;
+        tanswer=tanswer+"Step Response of function with 1 polees"+step1eqn;
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
@@ -744,7 +744,7 @@ function stepresponse1(para1,parb1,parc1, para2, parb2, parc2) {
         co1 = parb1;
         co2 = 2 * parb1 / parb2;
         step1eqn = "$${ "+ co1.toFixed(2) +" - "+co1.toFixed(2)+"* e^{-1*t} + " + co2.toFixed(2)+"* t * e^{-1*t}}$$";
-        tanswer=tanswer+"Step Response of function with 1 zeroes"+step1eqn;
+        tanswer=tanswer+"Step Response of function with 1 polees"+step1eqn;
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
@@ -811,7 +811,7 @@ function stepresponse(para1,parb1,parc1, para2, parb2, parc2) {
         console.log(co4);
         console.log(sqd);
         step0eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*cos("+sqd.toFixed(2)+"*t) + " + co5.toFixed(2) +"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*sin("+sqd.toFixed(2)+"*t)}$$";
-        tanswer=tanswer+"Step Response of function with 0 zeroes"+step0eqn;
+        tanswer=tanswer+"Step Response of function with 0 polees"+step0eqn;
         if (amplitudes1(co1, co2, co3, co4,sqd, 1, 10) == amplitudes1(co1, co2, co3, co4,sqd, 1, 9.8)) {
             maxl = 10;
             stepl = 0.05;
@@ -844,7 +844,7 @@ function stepresponse(para1,parb1,parc1, para2, parb2, parc2) {
         co1 = parb1;
         co2 = 2 * parb1 / parb2;
         step0eqn = "$${ "+ co1.toFixed(2) +" - "+co1.toFixed(2)+"* e^{-1*t} + " + co2.toFixed(2)+"* t * e^{-1*t}}$$";
-        tanswer=tanswer+"Step Response of function with 0 zeroes"+step0eqn;
+        tanswer=tanswer+"Step Response of function with 0 polees"+step0eqn;
         if (amplitudes2(co1, co2, 1, 10) == amplitudes2(co1, co2, 1, 9.8)) {
             maxl = 10;
             stepl = 0.05;
