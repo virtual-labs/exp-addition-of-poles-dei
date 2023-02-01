@@ -166,16 +166,16 @@ function addval() {
             c1 = parseInt(c)/b2;
     c2 = parseInt(r)/b2;
     stepresponse3(c1, c2,p1r,p1i);
-        a2 = parseInt(p);
-    b2 = parseInt(q);
-
-    c2 = parseInt(r);
-            a1 = parseInt(c);
-            b1 = (p1r+p2r)*a1;
-            c1 = a1*(p1r*p1r+p1i*p1i);
-            b2 = b2+b1;
-            c2= c2+c1;
-            a2=a2+a1;
+    let a3=0;    
+    a3 = b2;
+        
+        c2 = parseInt(r);
+        a2 = a3*2*p1r+c2;
+        b2 = a3 * (p1r*p1r+p1i*p1i)-c2*2*p1r;
+    c2 = c2*(p1r*p1r+p1i*p1i);
+            a1 = 0;
+            b1 = 0;
+            c1 = parseInt(c);
              numerator = "$${\\frac{";
         if (a1 != 0)
             numerator = numerator + a1.toFixed(0) + "s^2";
@@ -191,8 +191,13 @@ function addval() {
                 numerator = numerator + c1.toFixed(0);
         numerator = numerator + "}";
          denominator = "{";
-        if (a2 != 0)
-            denominator = denominator + a2.toFixed(0) + "s^2";
+        if (a3 != 0)
+            denominator = denominator + a3.toFixed(0) + "s^3";
+            if (a2!= 0)
+            if (a3 != 0)
+                denominator = denominator + " + " + a2.toFixed(0) + "s^2";
+            else
+                denominator = denominator + a2.toFixed(0) + "s^3";
         if (b2 != 0)
             if (a2 != 0)
                 denominator = denominator + " + " + b2.toFixed(0) + "s";
@@ -223,16 +228,20 @@ function addval() {
             c1 = parseInt(c)/b2;
     c2 = parseInt(r)/b2;
     stepresponse2(c1,c2,p1r,p2r);
-            a1 =0;
+    let a3=0;    
+    a3 = b2;
+        
+        c2 = parseInt(r);
+        a2 = a3*(p1r+p2r)+c2;
+        b2 = a3 * (p1r*p2r)-c2*(p1r+p2r);
+    c2 = c2*(p1r*p2r);
+            a1 = 0;
             b1 = 0;
             c1 = parseInt(c);
-            b2 = b2+b1;
-            c2= c2+c1;
-            a2=a2+a1;
-            numerator = "$${\\frac{";
-            if (a1 != 0)
+             numerator = "$${\\frac{";
+        if (a1 != 0)
             numerator = numerator + a1.toFixed(0) + "s^2";
-            if (b1 != 0)
+        if (b1 != 0)
             if (a1 != 0)
                 numerator = numerator + " + " + b1.toFixed(0)+"s";
             else
@@ -244,8 +253,13 @@ function addval() {
                 numerator = numerator + c1.toFixed(0);
         numerator = numerator + "}";
          denominator = "{";
-        if (a2 != 0)
-            denominator = denominator + a2.toFixed(0) + "s^2";
+        if (a3 != 0)
+            denominator = denominator + a3.toFixed(0) + "s^3";
+            if (a2!= 0)
+            if (a3 != 0)
+                denominator = denominator + " + " + a2.toFixed(0) + "s^2";
+            else
+                denominator = denominator + a2.toFixed(0) + "s^3";
         if (b2 != 0)
             if (a2 != 0)
                 denominator = denominator + " + " + b2.toFixed(0) + "s";
