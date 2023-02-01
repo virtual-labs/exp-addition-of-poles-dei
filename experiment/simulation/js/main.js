@@ -128,7 +128,7 @@ function addval() {
     var a1,a2,b1,b2,c1,c2;
     var c = document.getElementById("numc").value;
     var r = document.getElementById("denc").value;
-    var p = document.getElementById("dena").value;
+    var p = 0;
     var q = document.getElementById("denb").value;
     var numerator = "$${\\frac{";
     numerator=numerator + c+"}";
@@ -157,35 +157,15 @@ function addval() {
         a2 = parseInt(p);
     b2 = parseInt(q);
 
-    c2 = parseInt(r);
-        a1 = 0;
-        b1 = 0;
-        c1 = parseInt(c);
-        
-    c2= c2+c1;
-    var numerator = "$${\\frac{";
-        numerator=numerator + c+"}";
-        var denominator = "{";
-        if (a2 != 0)
-            denominator = denominator + a2.toFixed(0) + "s^2";
-        if (b2 != 0)
-            if (a2 != 0)
-                denominator = denominator + " + " + b2.toFixed(0) + "s";
-            else
-                denominator = denominator + b2.toFixed(0) + "s";
-        if (c2 != 0)
-            if (b2 != 0)
-                denominator = denominator + " + " + c2.toFixed(0);
-            else
-                denominator = denominator + c2.toFixed(0);
-        denominator = denominator + "}}$$";
-        var eqn = numerator + denominator;
-        console.log(eqn);
-        document.getElementById("out2").innerHTML = eqn;
-    stepresponse(a1,b1,c1, a2, b2, c2);
+    
     eqn ="Not enough polees";
     if(p1i!="")
     {
+        a2 = 0;
+    b2 = parseInt(q);
+            c1 = parseInt(c)/b2;
+    c2 = parseInt(r)/b2;
+    stepresponse3(c1, c2,p1r,p1i);
         a2 = parseInt(p);
     b2 = parseInt(q);
 
@@ -232,19 +212,20 @@ function addval() {
     // console.log(b2);
     // console.log(c2);
 
-            stepresponse2(a1,b1,c1, a2, b2, c2);
+            
             document.getElementById("out4").innerHTML = eqn;
     }
     else
     {if(p2r!="")
         {
-            a2 = parseInt(p);
+            a2 = 0;
     b2 = parseInt(q);
-
-    c2 = parseInt(r);
-            a1 = parseInt(c);
-            b1 = (p1r+p2r)*a1;
-            c1 = a1*p1r*p2r;
+            c1 = parseInt(c)/b2;
+    c2 = parseInt(r)/b2;
+    stepresponse2(c1,c2,p1r,p2r);
+            a1 =0;
+            b1 = 0;
+            c1 = parseInt(c);
             b2 = b2+b1;
             c2= c2+c1;
             a2=a2+a1;
@@ -278,21 +259,24 @@ function addval() {
         denominator = denominator + "}}$$";
         eqn = numerator + denominator;
         
-            stepresponse2(a1,b1,c1, a2, b2, c2);
+            
         }
         document.getElementById("out4").innerHTML = eqn;
         eqn ="Not enough polees";
         if(p1r!="" && p1i=="")
         {
-            a2 = parseInt(p);
+            a2 = 0;
     b2 = parseInt(q);
 
-    c2 = parseInt(r);
-            a1=0;
-            b1 = parseInt(c);
-            c1 = p1r*b1;
-            b2 = b2+b1;
-            c2= c2+c1;
+    c2 = parseInt(r)/b2;
+            c1 = parseInt(c)/b2;
+
+            stepresponse1(c1,  c2,p1r);
+            c1 = parseInt(c)
+            c2 = parseInt(r)
+            a2=b2;
+            b2 = c2+p1r;
+            c2 = parseInt(q)*p1r;
             numerator = "$${\\frac{";
             if (a1 != 0)
             numerator = numerator + a1.toFixed(0) + "s^2";
@@ -324,9 +308,36 @@ function addval() {
         eqn = numerator + denominator;
         console.log(eqn);
         
-            stepresponse1(0,b1,c1, a2, b2, c2);
+            
         }document.getElementById("out3").innerHTML = eqn;}
+        c2 = parseInt(r);
+        a1 = 0;
+        b1 = 0;
+        c1 = parseInt(c);
         
+    c2= c2+c1;
+    var numerator = "$${\\frac{";
+        numerator=numerator + c+"}";
+        var denominator = "{";
+        if (a2 != 0)
+            denominator = denominator + a2.toFixed(0) + "s^2";
+        if (b2 != 0)
+            if (a2 != 0)
+                denominator = denominator + " + " + b2.toFixed(0) + "s";
+            else
+                denominator = denominator + b2.toFixed(0) + "s";
+        if (c2 != 0)
+            if (b2 != 0)
+                denominator = denominator + " + " + c2.toFixed(0);
+            else
+                denominator = denominator + c2.toFixed(0);
+        denominator = denominator + "}}$$";
+        var eqn = numerator + denominator;
+        console.log(eqn);
+        document.getElementById("out2").innerHTML = eqn;
+        c1 = c1/b2;
+        c2 = c2/b2;
+    stepresponse(c1, c2);
         
     //impulseresponse(b1, a2, b2, c2);
 
@@ -426,7 +437,7 @@ function addval() {
 
 function showval() {
     genval("numc", "lc");
-    genval("dena", "lp");
+    //genval("dena", "lp");
     genval("denb", "lq");
     genval("denc", "lr");
 };
@@ -577,12 +588,11 @@ function dispmenu(val) {
     }
 }
 
-function stepresponse2(para1,parb1,parc1, para2, parb2, parc2) {
+function stepresponse2(parc1,parc2,pole1,pole2) {
     lab_step2 = [];
     dat_step2 = [];
     var co1, co2, co3, co4,co5;
     var stepl, maxl;
-    kp = parb1/parc2;
     // console.log(para1);
     // console.log(parb1);
     // console.log(parc1);
@@ -590,39 +600,37 @@ function stepresponse2(para1,parb1,parc1, para2, parb2, parc2) {
     // console.log(parb2);
     // console.log(parc2);
     // console.log(kp);
-    esss = 1/(1+parb1/parc2);
     step2eqn="";
-    var det = parc2/para2-Math.pow(parb2/2/para2,2);
-    if (det < 0)
-        det = -1 * det;
-    var sqd = Math.sqrt(det)
-    if (det != 0) {
-        co1 = parc1 / parc2;
-        co2 = (para1-co1*para2)/para2;
-        co3 = parb2/2/para2;
-        co4 = (parb1-co1*parb2)/parb2;
-        co5 = co2*(co4/co2-co3);
-        step2eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*cos("+sqd.toFixed(2)+"*t) + " + co5.toFixed(2) +"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*sin("+sqd.toFixed(2)+"*t)}$$";
-        tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
+    console.log(pole2);
+    if(pole1!=pole2)
+{    co1 = parc1 / parc2/pole1/pole2;
+    co2 = parc1/parc2/(pole1-parc2)/(pole2-parc2);
+    co3 = -1*parc2;
+    co4 = parc1/pole1/(parc2-pole1)/(pole2-pole1);
+    co5 = -1*pole1;
+    co6 = parc1/pole2/(parc2-pole2)/(pole1-pole2);
+    co7 = -1*pole2;
+    step2eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t} - "+co6.toFixed(2)+"*e^{"+co7.toFixed(2)+"*t}}$$";   
+    tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
         console.log(tanswer);
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
         }
         else
-            {if (amplitudes1(co1, co2, co3, co4,sqd, 1, 10) == amplitudes1(co1, co2, co3, co4,sqd, 1, 9.8)) {
+            {if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 10) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 9.8)) {
                 maxl = 10;
                 stepl = 0.05;
-            } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 25) == amplitudes1(co1, co2, co3, co4,sqd, 1, 24.5)) {
+            } else if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 25) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 24.5)) {
                 maxl = 25;
                 stepl = 0.125;
-            } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 50) == amplitudes1(co1, co2, co3, co4,sqd, 1, 49)) {
+            } else if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 50) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 49)) {
                 maxl = 50;
                 stepl = 0.25;
-            } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 100) == amplitudes1(co1, co2, co3, co4,sqd, 1, 98)) {
+            } else if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 100) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 98)) {
                 maxl = 100;
                 stepl = 0.5;
-            } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 200) == amplitudes1(co1, co2, co3, co4,sqd, 1, 196)) {
+            } else if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 200) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 196)) {
                 maxl = 200;
                 stepl = 1;
             } else {
@@ -632,98 +640,140 @@ function stepresponse2(para1,parb1,parc1, para2, parb2, parc2) {
 
         for (let i = 0; i <= maxl; i = i + stepl) {
 
-            dat_step2.push(amplitudes1(co1, co2, co3, co4,sqd, 0, i));
+            dat_step2.push(amplitudes12(co1, co2, co3, co4,co5,co6,co7, 0, i));
             lab_step2.push(i.toFixed(1));
         }
-        lab_final = lab_step2;
-        final_step = stepl;
-        
-        
-    } else {
-        co1 = parb1;
-        co2 = 2 * parb1 / parb2;
-        step2eqn = "$${ "+ co1.toFixed(2) +" - "+co1.toFixed(2)+"* e^{-1*t} + " + co2.toFixed(2)+"* t * e^{-1*t}}$$";
-        tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
+    }
+    else{
+        co1 = parc1 / parc2/pole1/pole1;
+        co2 = parc1/parc2/(pole1-parc2)/(pole1-parc2);
+        co3 = -1*parc2;
+        co4 = parc1/pole1/(parc2-pole1)/pole1;
+        co5 = -1*pole1;
+        step1eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}}$$";
+        tanswer=tanswer+"Step Response of function with 2 polees"+step1eqn;
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
         }
         else
-            {if (amplitudes2(co1, co2, 1, 10) == amplitudes2(co1, co2, 1, 9.8)) {
+            {if (amplitudes11(co1, co2, co3, co4,co5, 1, 10) == amplitudes11(co1, co2, co3, co4,co5, 1, 9.8)) {
                 maxl = 10;
                 stepl = 0.05;
-            } else if (amplitudes2(co1, co2, 1, 25) == amplitudes2(co1, co2, 1, 24.5)) {
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 25) == amplitudes11(co1, co2, co3, co4,co5, 1, 24.5)) {
                 maxl = 25;
                 stepl = 0.125;
-            } else if (amplitudes2(co1, co2, 1, 50) == amplitudes2(co1, co2, 1, 49)) {
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 50) == amplitudes11(co1, co2, co3, co4,co5, 1, 49)) {
                 maxl = 50;
                 stepl = 0.25;
-            } else if (amplitudes2(co1, co2, 1, 100) == amplitudes2(co1, co2, 1, 98)) {
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 100) == amplitudes11(co1, co2, co3, co4,co5, 1, 98)) {
                 maxl = 100;
                 stepl = 0.5;
-            } else if (amplitudes2(co1, co2, 1, 200) == amplitudes2(co1, co2, 1, 196)) {
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 200) == amplitudes11(co1, co2, co3, co4,co5, 1, 196)) {
                 maxl = 200;
                 stepl = 1;
             } else {
                 maxl = 250;
-                stepl = 1.25;
+                stepl = 1.2;
             }}
+
 
         for (let i = 0; i <= maxl; i = i + stepl) {
 
-            dat_step2.push(amplitudes2(co1, co2, 0, i));
+            dat_step2.push(amplitudes11(co1, co2, co3, co4,co5, 0, i));
             lab_step2.push(i.toFixed(1));
         }
+    }
         lab_final = lab_step2;
         final_step = stepl;
-    }
-}
+        
+        
+    } 
 
-function stepresponse1(para1,parb1,parc1, para2, parb2, parc2) {
-    lab_step1 = [];
-    dat_step1 = [];
-    var co1, co2, co3, co4,co5;
+
+
+function stepresponse2(parc1,parc2,pole1,pole2) {
+    lab_step2 = [];
+    dat_step2 = [];
+    var co1, co2, co3, co4,co5,co7,co6;
     var stepl, maxl;
-    kp = parb1/parc2;
     // console.log(para1);
     // console.log(parb1);
     // console.log(parc1);
     // console.log(para2);
     // console.log(parb2);
     // console.log(parc2);
-    console.log(kp);
-    esss = 1/(1+parb1/parc2);
-    step1eqn="";
-    var det = parc2/para2-Math.pow(parb2/2/para2,2);
-    if (det < 0)
-        det = -1 * det;
-    var sqd = Math.sqrt(det)
-    if (det != 0) {
-        co1 = parc1 / parc2;
-        co2 = (para1-co1*para2)/para2;
-        co3 = parb2/2/para2;
-        co4 = (parb1-co1*parb2)/parb2;
-        co5 = co2*(co4/co2-co3);
-        step1eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*cos("+sqd.toFixed(2)+"*t) + " + co5.toFixed(2) +"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*sin("+sqd.toFixed(2)+"*t)}$$";
-        tanswer=tanswer+"Step Response of function with 1 polees"+step1eqn;
+    // console.log(kp);
+    step2eqn="";
+    console.log(pole2);
+    if(pole1!=pole2)
+{    co1 = parc1 / parc2/pole1/pole2;
+    co2 = parc1/parc2/(pole1-parc2)/(pole2-parc2);
+    co3 = -1*parc2;
+    co4 = parc1/pole1/(parc2-pole1)/(pole2-pole1);
+    co5 = -1*pole1;
+    co6 = parc1/pole2/(parc2-pole2)/(pole1-pole2);
+    co7 = -1*pole2;
+    step2eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t} - "+co6.toFixed(2)+"*e^{"+co7.toFixed(2)+"*t}}$$";   
+    tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
+        console.log(tanswer);
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
         }
         else
-            {if (amplitudes1(co1, co2, co3, co4,sqd, 1, 10) == amplitudes1(co1, co2, co3, co4,sqd, 1, 9.8)) {
+            {if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 10) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 9.8)) {
                 maxl = 10;
                 stepl = 0.05;
-            } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 25) == amplitudes1(co1, co2, co3, co4,sqd, 1, 24.5)) {
+            } else if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 25) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 24.5)) {
                 maxl = 25;
                 stepl = 0.125;
-            } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 50) == amplitudes1(co1, co2, co3, co4,sqd, 1, 49)) {
+            } else if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 50) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 49)) {
                 maxl = 50;
                 stepl = 0.25;
-            } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 100) == amplitudes1(co1, co2, co3, co4,sqd, 1, 98)) {
+            } else if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 100) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 98)) {
                 maxl = 100;
                 stepl = 0.5;
-            } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 200) == amplitudes1(co1, co2, co3, co4,sqd, 1, 196)) {
+            } else if (amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 200) == amplitudes12(co1, co2, co3, co4,co5,co6,co7, 1, 196)) {
+                maxl = 200;
+                stepl = 1;
+            } else {
+                maxl = 250;
+                stepl = 1.2;
+            }}
+
+        for (let i = 0; i <= maxl; i = i + stepl) {
+
+            dat_step2.push(amplitudes12(co1, co2, co3, co4,co5,co6,co7, 0, i));
+            lab_step2.push(i.toFixed(1));
+        }
+    }
+    else{
+        co1 = parc1 / parc2/pole1/pole1;
+        co2 = parc1/parc2/(pole1-parc2)/(pole1-parc2);
+        co3 = -1*parc2;
+        co4 = parc1/pole1/(parc2-pole1)/pole1;
+        co5 = -1*pole1;
+        step1eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}}$$";
+        tanswer=tanswer+"Step Response of function with 2 polees"+step1eqn;
+        if(lab_final.length!=0){
+            maxl = lab_final[lab_final.length-1];
+            stepl=final_step;
+        }
+        else
+            {if (amplitudes11(co1, co2, co3, co4,co5, 1, 10) == amplitudes11(co1, co2, co3, co4,co5, 1, 9.8)) {
+                maxl = 10;
+                stepl = 0.05;
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 25) == amplitudes11(co1, co2, co3, co4,co5, 1, 24.5)) {
+                maxl = 25;
+                stepl = 0.125;
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 50) == amplitudes11(co1, co2, co3, co4,co5, 1, 49)) {
+                maxl = 50;
+                stepl = 0.25;
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 100) == amplitudes11(co1, co2, co3, co4,co5, 1, 98)) {
+                maxl = 100;
+                stepl = 0.5;
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 200) == amplitudes11(co1, co2, co3, co4,co5, 1, 196)) {
                 maxl = 200;
                 stepl = 1;
             } else {
@@ -734,145 +784,185 @@ function stepresponse1(para1,parb1,parc1, para2, parb2, parc2) {
 
         for (let i = 0; i <= maxl; i = i + stepl) {
 
-            dat_step1.push(amplitudes1(co1, co2, co3, co4,sqd, 0, i));
-            lab_step1.push(i.toFixed(1));
+            dat_step2.push(amplitudes11(co1, co2, co3, co4,co5, 0, i));
+            lab_step2.push(i.toFixed(1));
         }
-        lab_final = lab_step1;
+    }
+        lab_final = lab_step2;
         final_step = stepl;
         
-    } else {
-        co1 = parb1;
-        co2 = 2 * parb1 / parb2;
-        step1eqn = "$${ "+ co1.toFixed(2) +" - "+co1.toFixed(2)+"* e^{-1*t} + " + co2.toFixed(2)+"* t * e^{-1*t}}$$";
+        
+    } 
+
+    function stepresponse3(parc1, parc2,poler,polei) {
+        lab_step2 = [];
+        dat_step2 = [];
+        var co1, co2,co3,co4,co5,co6,co7;
+        var stepl, maxl;
+        // console.log(para1);
+        // console.log(parb1);
+        // console.log(parc1);
+        // console.log(para2);
+        // console.log(parb2);
+        // console.log(parc2);
+        step2eqn="";
+        
+            co1 = parc1 / parc2/(poler*poler+polei*polei);
+            co2 = parc1/parc2/(poler*poler+polei*polei+parc2*parc2-2*parc2*poler);
+            co3 = -1*parc2;
+            co4 = parc1*(2*poler-parc2)/(poler*poler+polei*polei+parc2*parc2-2*parc2*poler)/(poler*poler+polei*polei);
+            co5 = -1*poler;
+            co6=polei;
+            co7=parc1*(2*poler-parc2)*(poler*poler-polei*polei+polei*poler)/(poler*poler+polei*polei+parc2*parc2-2*parc2*poler)/(poler*poler+polei*polei)/(2*polei*poler-polei*polei);
+            step2eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} + "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}* cos({"+co6.toFixed(2)+"})  - "+co7.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}* cos({"+co7.toFixed(2)+"})}$$";
+            tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
+            if(lab_final.length!=0){
+                maxl = lab_final[lab_final.length-1];
+                stepl=final_step;
+            }
+            else
+                {if (amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 10) == amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 9.8)) {
+                    maxl = 10;
+                    stepl = 0.05;
+                } else if (amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 25) == amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 24.5)) {
+                    maxl = 25;
+                    stepl = 0.125;
+                } else if (amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 50) == amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 49)) {
+                    maxl = 50;
+                    stepl = 0.25;
+                } else if (amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 100) == amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 98)) {
+                    maxl = 100;
+                    stepl = 0.5;
+                } else if (amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 200) == amplitudes22(co1, co2, co3, co4,co5,co6,co7, 1, 196)) {
+                    maxl = 200;
+                    stepl = 1;
+                } else {
+                    maxl = 250;
+                    stepl = 1.2;
+                }}
+    
+    
+            for (let i = 0; i <= maxl; i = i + stepl) {
+    
+                dat_step2.push(amplitudes22(co1, co2, co3, co4,co5,co6,co7, 0, i));
+                lab_step2.push(i.toFixed(1));
+            }
+            lab_final = lab_step1;
+            final_step = stepl;
+            
+        
+    }
+    
+
+function stepresponse1(parc1, parc2,pole1) {
+    lab_step1 = [];
+    dat_step1 = [];
+    var co1, co2,co3,co4,co5;
+    var stepl, maxl;
+    // console.log(para1);
+    // console.log(parb1);
+    // console.log(parc1);
+    // console.log(para2);
+    // console.log(parb2);
+    // console.log(parc2);
+    step1eqn="";
+    
+        co1 = parc1 / parc2/pole1;
+        co2 = parc1/parc2/(pole1-parc2);
+        co3 = -1*parc2;
+        co4 = parc1/pole1/(parc2-pole1);
+        co5 = -1*pole1;
+        step1eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}}$$";
         tanswer=tanswer+"Step Response of function with 1 polees"+step1eqn;
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
         }
         else
-            {if (amplitudes2(co1, co2, 1, 10) == amplitudes2(co1, co2, 1, 9.8)) {
+            {if (amplitudes11(co1, co2, co3, co4,co5, 1, 10) == amplitudes11(co1, co2, co3, co4,co5, 1, 9.8)) {
                 maxl = 10;
                 stepl = 0.05;
-            } else if (amplitudes2(co1, co2, 1, 25) == amplitudes2(co1, co2, 1, 24.5)) {
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 25) == amplitudes11(co1, co2, co3, co4,co5, 1, 24.5)) {
                 maxl = 25;
                 stepl = 0.125;
-            } else if (amplitudes2(co1, co2, 1, 50) == amplitudes2(co1, co2, 1, 49)) {
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 50) == amplitudes11(co1, co2, co3, co4,co5, 1, 49)) {
                 maxl = 50;
                 stepl = 0.25;
-            } else if (amplitudes2(co1, co2, 1, 100) == amplitudes2(co1, co2, 1, 98)) {
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 100) == amplitudes11(co1, co2, co3, co4,co5, 1, 98)) {
                 maxl = 100;
                 stepl = 0.5;
-            } else if (amplitudes2(co1, co2, 1, 200) == amplitudes2(co1, co2, 1, 196)) {
+            } else if (amplitudes11(co1, co2, co3, co4,co5, 1, 200) == amplitudes11(co1, co2, co3, co4,co5, 1, 196)) {
                 maxl = 200;
                 stepl = 1;
             } else {
                 maxl = 250;
-                stepl = 1.25;
+                stepl = 1.2;
             }}
+
 
         for (let i = 0; i <= maxl; i = i + stepl) {
 
-            dat_step1.push(amplitudes2(co1, co2, 0, i));
+            dat_step1.push(amplitudes11(co1, co2, co3, co4,co5, 0, i));
             lab_step1.push(i.toFixed(1));
         }
         lab_final = lab_step1;
         final_step = stepl;
-    }
+        
+    
 }
 
-function stepresponse(para1,parb1,parc1, para2, parb2, parc2) {
+function stepresponse(parc1,  parc2) {
     lab_step = [];
     dat_step = [];
-    var co1, co2, co3, co4,co5;
+    var co1, co2;
     var stepl, maxl;
-    kp = parb1/parc2;
-    console.log(para1);
-    console.log(parb1);
-    console.log(parc1);
-    console.log(para2);
-    console.log(parb2);
-    console.log(parc2);
+    //kp = parb1/parc2;
+    // console.log(para1);
+    // console.log(parb1);
+    // console.log(parc1);
+    // console.log(para2);
+    // console.log(parb2);
+    // console.log(parc2);
     // console.log(kp);
-    esss = 1/(1+parb1/parc2);
-    step0eqn="";
-    var det = parc2/para2-Math.pow(parb2/2/para2,2);
-    if (det < 0)
-        det = -1 * det;
-    var sqd = Math.sqrt(det)
-    if (det != 0) {
         co1 = parc1 / parc2;
-        co2 = (para1-co1*para2)/para2;
-        co3 = parb2/2/para2;
-        co4 = (parb1-co1*parb2)/parb2;
-        co5 = co2*(co4/co2-co3);
-        console.log(co1);
-        console.log(co2);
-        console.log(co3);
-        console.log(co4);
-        console.log(sqd);
-        step0eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*cos("+sqd.toFixed(2)+"*t) + " + co5.toFixed(2) +"*e^{-1*"+co3.toFixed(2)+"*t} &emsp;*sin("+sqd.toFixed(2)+"*t)}$$";
+        co2 = -1*parc2;
+        step0eqn = "$${" + co1.toFixed(2)+"*e^{"+co2.toFixed(2)+"*t}}$$";
         tanswer=tanswer+"Step Response of function with 0 polees"+step0eqn;
-        if (amplitudes1(co1, co2, co3, co4,sqd, 1, 10) == amplitudes1(co1, co2, co3, co4,sqd, 1, 9.8)) {
+        console.log(tanswer);
+        if(lab_final.length!=0){
+            maxl = lab_final[lab_final.length-1];
+            stepl=final_step;
+        }
+        else
+        {if (amplitudes10(co1, co2,  1, 10) == amplitudes10(co1, co2,  1, 9.8)) {
             maxl = 10;
             stepl = 0.05;
-        } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 25) == amplitudes1(co1, co2, co3, co4,sqd, 1, 24.5)) {
+        } else if (amplitudes10(co1, co2,  1, 25) == amplitudes10(co1, co2,  1, 24.5)) {
             maxl = 25;
             stepl = 0.125;
-        } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 50) == amplitudes1(co1, co2, co3, co4,sqd, 1, 49)) {
+        } else if (amplitudes10(co1, co2,  1, 50) == amplitudes10(co1, co2,  1, 49)) {
             maxl = 50;
             stepl = 0.25;
-        } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 100) == amplitudes1(co1, co2, co3, co4,sqd, 1, 98)) {
+        } else if (amplitudes10(co1, co2,  1, 100) == amplitudes10(co1, co2,  1, 98)) {
             maxl = 100;
             stepl = 0.5;
-        } else if (amplitudes1(co1, co2, co3, co4,sqd, 1, 200) == amplitudes1(co1, co2, co3, co4,sqd, 1, 196)) {
+        } else if (amplitudes10(co1, co2,  1, 200) == amplitudes10(co1, co2,  1, 196)) {
             maxl = 200;
             stepl = 1;
         } else {
             maxl = 250;
             stepl = 1.25;
-        }
+        }}
 
         for (let i = 0; i <= maxl; i = i + stepl) {
 
-            dat_step.push(amplitudes1(co1, co2, co3, co4,sqd, 0, i));
+            dat_step.push(amplitudes10(co1, co2,  0, i));
             lab_step.push(i.toFixed(1));
         }
         lab_final = lab_step;
         final_step = stepl;
         
-    } else {
-        co1 = parb1;
-        co2 = 2 * parb1 / parb2;
-        step0eqn = "$${ "+ co1.toFixed(2) +" - "+co1.toFixed(2)+"* e^{-1*t} + " + co2.toFixed(2)+"* t * e^{-1*t}}$$";
-        tanswer=tanswer+"Step Response of function with 0 polees"+step0eqn;
-        if (amplitudes2(co1, co2, 1, 10) == amplitudes2(co1, co2, 1, 9.8)) {
-            maxl = 10;
-            stepl = 0.05;
-        } else if (amplitudes2(co1, co2, 1, 25) == amplitudes2(co1, co2, 1, 24.5)) {
-            maxl = 25;
-            stepl = 0.125;
-        } else if (amplitudes2(co1, co2, 1, 50) == amplitudes2(co1, co2, 1, 49)) {
-            maxl = 50;
-            stepl = 0.25;
-        } else if (amplitudes2(co1, co2, 1, 100) == amplitudes2(co1, co2, 1, 98)) {
-            maxl = 100;
-            stepl = 0.5;
-        } else if (amplitudes2(co1, co2, 1, 200) == amplitudes2(co1, co2, 1, 196)) {
-            maxl = 200;
-            stepl = 1;
-        } else {
-            maxl = 1;
-            stepl = 0.005;
-        }
-
-        for (let i = 0; i <= maxl; i = i + stepl) {
-
-            dat_step.push(amplitudes2(co1, co2, 0, i));
-            lab_step.push(i.toFixed(1));
-        }
-        lab_final = lab_step;
-        final_step = stepl;
-    }
+    
 }
 
 
@@ -894,7 +984,38 @@ function amplitudes2(v1, v2, str, t) {
         return cal;
 }
 
+function amplitudes10(v1,v2,str,t)
+{
+    var cal = v1*(1-Math.pow(Math.E,v2*t));
+    if (str)
+        return cal.toFixed(4);
+    else
+        return cal;
+}
 
+function amplitudes11(v1,v2,v3,v4,v5,str,t)
+{
+    var cal = v1-v2*Math.pow(Math.E,v3*t)-v4*Math.pow(Math.E,v5*t);
+    if (str)
+        return cal.toFixed(4);
+    else
+        return cal;
+}
 
-
+function amplitudes12(v1,v2,v3,v4,v5,v6,v7,str,t)
+{
+    var cal = v1-v2*Math.pow(Math.E,v3*t)-v4*Math.pow(Math.E,v5*t)-v6*Math.pow(Math.E,v7*t);
+    if (str)
+        return cal.toFixed(4);
+    else
+        return cal;
+}
+function amplitudes22(v1,v2,v3,v4,v5,v6,v7,str,t)
+{
+    var cal = v1-v2*Math.pow(Math.E,v3*t)+v4*Math.pow(Math.E,v5*t)*Math.cos(v6*t)+v7*Math.pow(Math.E,v5*t)*Math.sin(v6*t);
+    if (str)
+        return cal.toFixed(4);
+    else
+        return cal;
+}
 
