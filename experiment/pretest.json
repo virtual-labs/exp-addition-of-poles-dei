@@ -36,7 +36,7 @@
       "difficulty": "beginner"
     },
         {
-      "question": "The characteristic equation is s<sup>2<sup>+2s+1 and a pole is added at -2 to closed loop transfer function. The system is",
+      "question": "The characteristic equation is s<sup>2</sup>+2s+1 and a pole is added at -2 to closed loop transfer function. The system is",
       "answers": {
         "a": "Stable",
         "b": "Unstable",
@@ -47,7 +47,7 @@
       "difficulty": "beginner"
     },
         {
-      "question": "For the characteristic equation s<sup>2<sup>+5s+6 , the poles are at ",
+      "question": "For the characteristic equation s<sup>2</sup>+5s+6 , the poles are at ",
       "answers": {
         "a": "2, 3",
         "b": "-2, 3",
