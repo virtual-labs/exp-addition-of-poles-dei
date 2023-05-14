@@ -9,22 +9,13 @@ var lab_step2 = [],
 var tanswer="";
 var final_step;
 var step1eqn="",step2eqn="",step0eqn="";
-var eqn;
+var eqn = "";
 var poles = [],
    roots = [];
 var kpi,essi,esss,kp;
 var p1r="",p1i="",p2r="",p2i="";
 var poleval =0;
-// function changepage() {
-//     var x = document.getElementById("pagechanger").value;
-//     if (x == 1)
-//         document.getElementById("sm1").click();
-//     else if (x == 2)
-//         document.getElementById("sm2").click();
-//     else
-//         document.getElementById("sm3").click();
 
-// }
 var conclusion;
 document.getElementById("addpole").addEventListener("click",poleadder);
 document.getElementById("delpole").addEventListener("click",poleremover);
@@ -74,19 +65,7 @@ function poleadder(){
     alert("Please enter pole value");
     document.getElementById("delpole").disabled = false;
     }
-    // else if(poleval==1)
-    // {
-    //     poles = document.getElementById("pole_val").value;
-    //     if(poles!="")
-    //     {
-    //     z2 =parseFloat(poles);
-    //     poleval=poleval+1;
-    //     +","+z2.toFixed(2);
-        
-    // }
-    // else 
-    // alert("Please enter pole value");
-    // }
+    
 }
 function poleremover(){
     if(poleval==2)
@@ -124,6 +103,8 @@ function addval() {
     lab_step1 = [];
     dat_step1 = [];
     lab_final=[];
+    eqn = "";
+    document.getElementById("out3").innerHTML = eqn;
     var nums, dens;
     var a1,a2,b1,b2,c1,c2;
     var c = document.getElementById("numc").value;
@@ -158,7 +139,7 @@ function addval() {
     b2 = parseInt(q);
 
     
-    eqn ="Not enough polees";
+    eqn ="Not enough poles";
     if(p1i!="")
     {
         a2 = 0;
@@ -170,7 +151,7 @@ function addval() {
     a3 = b2;
         
         c2 = parseInt(r);
-        a2 = a3*2*p1r+c2;
+        a2 = c2-a3*2*p1r;
         b2 = a3 * (p1r*p1r+p1i*p1i)-c2*2*p1r;
     c2 = c2*(p1r*p1r+p1i*p1i);
             a1 = 0;
@@ -193,19 +174,38 @@ function addval() {
          denominator = "{";
         if (a3 != 0)
             denominator = denominator + a3.toFixed(0) + "s^3";
-            if (a2!= 0)
+            if (a2> 0)
             if (a3 != 0)
                 denominator = denominator + " + " + a2.toFixed(0) + "s^2";
             else
                 denominator = denominator + a2.toFixed(0) + "s^3";
-        if (b2 != 0)
+        else if (a2<0)
+            if (a3 != 0)
+                denominator = denominator + " " + a2.toFixed(0) + "s^2";
+            else
+                denominator = denominator + a2.toFixed(0) + "s^3";
+
+        
+        if (b2>0)
             if (a2 != 0)
                 denominator = denominator + " + " + b2.toFixed(0) + "s";
             else
                 denominator = denominator + b2.toFixed(0) + "s";
-        if (c2 != 0)
+        else if (b2<0)
+            if (a2 != 0)
+                denominator = denominator + " " + b2.toFixed(0) + "s";
+            else
+                denominator = denominator + b2.toFixed(0) + "s";
+              
+                
+        if (c2>0)
             if (b2 != 0)
                 denominator = denominator + " + " + c2.toFixed(0);
+            else
+                denominator = denominator + c2.toFixed(0);
+        else if (c2<0)
+            if (b2 != 0)
+                denominator = denominator + " " + c2.toFixed(0);
             else
                 denominator = denominator + c2.toFixed(0);
         denominator = denominator + "}}$$";
@@ -255,28 +255,48 @@ function addval() {
          denominator = "{";
         if (a3 != 0)
             denominator = denominator + a3.toFixed(0) + "s^3";
-            if (a2!= 0)
+        if (a2> 0)
             if (a3 != 0)
                 denominator = denominator + " + " + a2.toFixed(0) + "s^2";
             else
                 denominator = denominator + a2.toFixed(0) + "s^3";
-        if (b2 != 0)
+        else if (a2<0)
+            if (a3 != 0)
+                denominator = denominator + " " + a2.toFixed(0) + "s^2";
+            else
+                denominator = denominator + a2.toFixed(0) + "s^3";
+
+        
+        if (b2>0)
             if (a2 != 0)
                 denominator = denominator + " + " + b2.toFixed(0) + "s";
             else
                 denominator = denominator + b2.toFixed(0) + "s";
-        if (c2 != 0)
+        else if (b2<0)
+            if (a2 != 0)
+                denominator = denominator + " " + b2.toFixed(0) + "s";
+            else
+                denominator = denominator + b2.toFixed(0) + "s";
+              
+                
+        if (c2>0)
             if (b2 != 0)
                 denominator = denominator + " + " + c2.toFixed(0);
             else
                 denominator = denominator + c2.toFixed(0);
+        else if (c2<0)
+            if (b2 != 0)
+                denominator = denominator + " " + c2.toFixed(0);
+            else
+                denominator = denominator + c2.toFixed(0);
+        
         denominator = denominator + "}}$$";
         eqn = numerator + denominator;
         
             
         }
         document.getElementById("out4").innerHTML = eqn;
-        eqn ="Not enough polees";
+        eqn ="Not enough poles";
         if(p1r!="" && p1i=="")
         {
             a2 = 0;
@@ -306,18 +326,28 @@ function addval() {
                 numerator = numerator + c1.toFixed(0);
         numerator = numerator + "}";
          denominator = "{";
-        if (a2 != 0)
+        if (a2>0)
             denominator = denominator + a2.toFixed(0) + "s^2";
-        if (b2 != 0)
+        if (b2>0)
             if (a2 != 0)
                 denominator = denominator + " + " + b2.toFixed(0) + "s";
             else
                 denominator = denominator + b2.toFixed(0) + "s";
-        if (c2 != 0)
+        else if (b2<0)
+            if (a2 != 0)
+                    denominator = denominator + " " + b2.toFixed(0) + "s";
+            else
+                    denominator = denominator + b2.toFixed(0) + "s";      
+        if (c2>0)
             if (b2 != 0)
                 denominator = denominator + " + " + c2.toFixed(0);
             else
                 denominator = denominator + c2.toFixed(0);
+        else if (c2<0)
+                if (b2 != 0)
+                    denominator = denominator + " " + c2.toFixed(0);
+                else
+                    denominator = denominator + c2.toFixed(0);        
         denominator = denominator + "}}$$";
         eqn = numerator + denominator;
         console.log(eqn);
@@ -330,6 +360,9 @@ function addval() {
         c1 = parseInt(c);
         
     c2= c2+c1;
+    a2=0;
+    b2 = parseInt(q);
+
     var numerator = "$${\\frac{";
         numerator=numerator + c+"}";
         var denominator = "{";
@@ -470,7 +503,7 @@ function runprog() {
     if (lc <= 5)
         highlightline(lc);
     else {
-        document.getElementById("fconclusions").innerHTML = conclusion;
+        document.getElementById("fconclusions").innerHTML = "1. On adding the poles, the response becomes slower and it takes longer to reach the steady state. <br> 2. The pole added is close enough to the origin. Thus, the system becomes more stable.";
         document.getElementById("line5").setAttribute("style", "color:black;");
         document.getElementById("mrun").disabled = true;
         var ms = window.matchMedia("screen and (max-width:950px)");
@@ -625,7 +658,7 @@ function stepresponse2(parc1,parc2,pole1,pole2) {
     co6 = parc1/pole2/(parc2-pole2)/(pole1-pole2);
     co7 = -1*pole2;
     step2eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t} - "+co6.toFixed(2)+"*e^{"+co7.toFixed(2)+"*t}}$$";   
-    tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
+    tanswer=tanswer+"Step Response of function with 2 poles"+step2eqn;
         console.log(tanswer);
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
@@ -665,7 +698,7 @@ function stepresponse2(parc1,parc2,pole1,pole2) {
         co4 = parc1/pole1/(parc2-pole1)/pole1;
         co5 = -1*pole1;
         step1eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}}$$";
-        tanswer=tanswer+"Step Response of function with 2 polees"+step1eqn;
+        tanswer=tanswer+"Step Response of function with 2 poles"+step1eqn;
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
@@ -729,7 +762,7 @@ function stepresponse2(parc1,parc2,pole1,pole2) {
     co6 = parc1/pole2/(parc2-pole2)/(pole1-pole2);
     co7 = -1*pole2;
     step2eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t} - "+co6.toFixed(2)+"*e^{"+co7.toFixed(2)+"*t}}$$";   
-    tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
+    tanswer=tanswer+"Step Response of function with 2 poles"+step2eqn;
         console.log(tanswer);
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
@@ -769,7 +802,7 @@ function stepresponse2(parc1,parc2,pole1,pole2) {
         co4 = parc1/pole1/(parc2-pole1)/pole1;
         co5 = -1*pole1;
         step1eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}}$$";
-        tanswer=tanswer+"Step Response of function with 2 polees"+step1eqn;
+        tanswer=tanswer+"Step Response of function with 2 poles"+step1eqn;
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
@@ -829,7 +862,7 @@ function stepresponse2(parc1,parc2,pole1,pole2) {
             co6=polei;
             co7=parc1*(2*poler-parc2)*(poler*poler-polei*polei+polei*poler)/(poler*poler+polei*polei+parc2*parc2-2*parc2*poler)/(poler*poler+polei*polei)/(2*polei*poler-polei*polei);
             step2eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} + "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}* cos({"+co6.toFixed(2)+"})  - "+co7.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}* cos({"+co7.toFixed(2)+"})}$$";
-            tanswer=tanswer+"Step Response of function with 2 polees"+step2eqn;
+            tanswer=tanswer+"Step Response of function with 2 poles"+step2eqn;
             if(lab_final.length!=0){
                 maxl = lab_final[lab_final.length-1];
                 stepl=final_step;
@@ -887,7 +920,7 @@ function stepresponse1(parc1, parc2,pole1) {
         co4 = parc1/pole1/(parc2-pole1);
         co5 = -1*pole1;
         step1eqn = "$${" + co1.toFixed(2)+" - "+ co2.toFixed(2)+"*e^{"+co3.toFixed(2)+"*t} - "+co4.toFixed(2)+"*e^{"+co5.toFixed(2)+"*t}}$$";
-        tanswer=tanswer+"Step Response of function with 1 polees"+step1eqn;
+        tanswer=tanswer+"Step Response of function with 1 poles"+step1eqn;
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
             stepl=final_step;
@@ -941,7 +974,7 @@ function stepresponse(parc1,  parc2) {
         co1 = parc1 / parc2;
         co2 = -1*parc2;
         step0eqn = "$${" + co1.toFixed(2)+"*e^{"+co2.toFixed(2)+"*t}}$$";
-        tanswer=tanswer+"Step Response of function with 0 polees"+step0eqn;
+        tanswer=tanswer+"Step Response of function with 0 poles"+step0eqn;
         console.log(tanswer);
         if(lab_final.length!=0){
             maxl = lab_final[lab_final.length-1];
