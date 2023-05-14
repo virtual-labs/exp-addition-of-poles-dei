@@ -1,0 +1,62 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "As the pole moves towards the origin in s plane then the rise time?",
+      "answers": {
+        "a": "Increases",
+        "b": "Decreases",
+        "c": "Oscillate Randomly",
+        "d": "Remain Stable"
+      },
+
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "The addition of left half pole tends to make the system response?",
+      "answers": {
+        "a": "Slow Down",
+        "b": "Fast",
+        "c": "Remain Constant",
+        "d": "None of the Above"
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What happens with maximum overshoot as the pole moves towards the origin in s plane?",
+      "answers": {
+        "a": "Increases",
+        "b": "Decreases",
+        "c": "Oscillate Randomly",
+        "d": "Remain Stable"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "Addition of right half pole will make overall system response to be?",
+      "answers": {
+        "a": "Stable",
+        "b": "Unstable",
+        "c": "Marginally Stable",
+        "d": "Conditionally Stable"
+      },
+
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "After adding poles, for stability of the system, range of operating values of k ?",
+      "answers": {
+        "a": "Increases",
+        "b": "Decreases",
+        "c": "Remain Unaffected",
+        "d": "Fluctuate"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    }
+  ]
+}

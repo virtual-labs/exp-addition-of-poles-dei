@@ -1,0 +1,61 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "Maximum overshoot is a function of ",
+      "answers": {
+        "a": "Damping Ratio",
+        "b": "Natural frequency",
+        "c": "Damped frequency",
+        "d": "None of these"
+      },
+
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Closed loop poles are ",
+      "answers": {
+        "a": "Zeroes of G(s)H(s)",
+        "b": "Poles of G(s)H(s)",
+        "c": "Zeroes of 1+G(S)H(s)",
+        "d": "Poles of 1+G(s)H(s)"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "If there are repeated poles on the imaginary axis in s-plane, the system will be",
+      "answers": {
+        "a": "Stable",
+        "b": "Marginally Stable",
+        "c": "Conditionally Stable",
+        "d": "Unstable"
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "The characteristic equation is s<sup>2</sup>+2s+1 and a pole is added at -2 to closed loop transfer function. The system is",
+      "answers": {
+        "a": "Stable",
+        "b": "Unstable",
+        "c": "Conditionally Stable",
+        "d": "Marginally Stable"
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+        {
+      "question": "For the characteristic equation s<sup>2</sup>+5s+6 , the poles are at ",
+      "answers": {
+        "a": "2, 3",
+        "b": "-2, 3",
+        "c": "-2, -3",
+        "d": "2, -3"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    }
+  ]
+}
